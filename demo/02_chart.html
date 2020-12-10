@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body,
+    p,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol,
+    li,
+    dl,
+    dt,
+    dd,
+    form,
+    input,
+    select,
+    table,
+    tr,
+    th {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    #canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    // 基础数据
+    let dataset = [
+      {
+        label: "家用电器",
+        value: 203
+      },
+      {
+        label: "手机通讯",
+        value: 185
+      },
+      {
+        label: "家居家具",
+        value: 97
+      },
+      {
+        label: "男装女装",
+        value: 285
+      },
+    ];
+    // 获取HTMLCanvasElement对象
+    let canvasEle = document.getElementById('canvas');
+    // 设置HTMLCanvasElement的宽度和高度
+    canvasEle.width = 400;
+    canvasEle.height = 300;
+    // 获取CanvasRenderingContext2D对象
+    let ctx = canvasEle.getContext('2d');
+    // 柱形宽度
+    let width = 50;
+    // 计算间隔的宽度  -- Math.ceil((画布的宽度 - 所有柱形的宽度) / (柱子的数量 + 1));
+    let spacer = Math.ceil((canvasEle.width - dataset.length * width) / (dataset.length + 1));
+    //  颜色色板
+    let colors = ['#c23531','#df4554', '#e1a0a8', '#d48265', '#c1c7ae','#b49f83',  '#aa8622', '#bda29a','#9e7074', '#a46570', '#c4ccd3'];
+    // 设置填充颜色 
+    let color = colors[Math.floor(Math.random() * colors.length)];
+    // 设置文本样式
+    ctx.font = '14px Microsoft Yahei';
+    // 设置文本水平居中
+    ctx.textAlign = 'center';
+    // 循环绘制矩形
+    for (let n = 0, i = dataset.length; n < i; n++) {
+      // X轴坐标
+      let x = (n+1) * spacer +  n * width;
+      // Y轴坐标
+      let y = canvasEle.height - dataset[n].value;
+      // 高度
+      let height = dataset[n].value;
+      // 设置填充颜色
+      ctx.fillStyle = color;  
+      // 绘制填充矩形
+      ctx.fillRect(x, y, width, height);
+      // 设置文本颜色
+      ctx.fillStyle = '#000';
+      // 绘制填充文本
+      ctx.fillText(dataset[n].value,x + Math.ceil(width / 2),y - 5);
+    }
+  </script>
+</body>
+
+</html>

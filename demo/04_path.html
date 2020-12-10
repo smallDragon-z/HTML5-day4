@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body,
+    p,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol,
+    li,
+    dl,
+    dt,
+    dd,
+    form,
+    input,
+    select,
+    table,
+    tr,
+    th {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    #canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #333;
+    }
+  </style>
+
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    // 获取HTMLCanvasElement对象
+    let canvasEle = document.getElementById('canvas');
+    // 设置HTMLCanvasElement的宽度和高度
+    canvasEle.width = 400;
+    canvasEle.height = 300;
+    // 获取CanvasRenderingContext2D对象
+    let ctx = canvasEle.getContext('2d');
+    // 通过beginPath()方法开始新的路径
+    ctx.beginPath();
+    // 通过moveTo()方法来移动起始点坐标
+    ctx.moveTo(50,250);
+    // 通过lineTo()方法指定路径的终(起)点
+    ctx.lineTo(100,150);
+    ctx.lineTo(130,200);
+    ctx.lineTo(350,70);
+    // 修改描边样式
+    ctx.strokeStyle = '#900';
+    // 通过stroke()或fill()方法进行描边或填充
+    ctx.stroke();
+  </script>
+</body>
+
+</html>

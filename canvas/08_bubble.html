@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body,
+    p,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol,
+    li,
+    dl,
+    dt,
+    dd,
+    form,
+    input,
+    select,
+    table,
+    tr,
+    th {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    #canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #333;
+    }
+
+    #input-container {
+      width: 600px;
+      margin: 20px auto 0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <div id="input-container">
+    <input id="text" type="text" placeholder="来发弹幕吧~">
+    <select id="color">
+      <option value="#FE0302">#FE0302</option>
+      <option value="#FF7204">#FF7204</option>
+      <option value="#019899">#019899</option>
+      <option value="#019899">#019899</option>
+    </select>
+    <select id="speed">
+      <option value="2">慢的</option>
+      <option value="4">标准</option>
+      <option value="6">快的</option>
+    </select>
+    <button id="sendBubble">发送</button>
+  </div>
+  <script>
+    // 获取HTMLCanvasElement对象
+    let canvasEle = document.getElementById('canvas');
+    // 设置HTMLCanvasElement的宽度和高度
+    canvasEle.width = 600;
+    canvasEle.height = 400;
+    // 获取CanvasRenderingContext2D对象
+    let ctx = canvasEle.getContext('2d');
+    // 设置文本样式
+    ctx.font = '16px Microsoft Yahei';
+    // var Bubble = function(text){
+    //   this.text=text;
+    //   this.x=x;
+    //   this.y=y;
+    //   this.color=color;
+    //   this.speed=speed;
+    // };
+    // 构建初始化的弹幕文本对象
+    // 使用class创建构造函数和原型对象
+    class Dubble {
+      constructor(text, y, color, speed) {
+        this.text = text;
+        this.x = canvasEle.width;
+        this.y = y;
+        this.color = color;
+        this.speed = speed;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.fillText(this.text, this.x, this.y);
+      }
+      update() {
+        this.x -= this.speed;
+      }
+    }
+    // function Dubble(形参){
+
+    // };
+    // var dubble = new Dubble(实参);
+    let array = [
+      // {
+      //   text: "好看",
+      //   x: canvasEle.width,
+      //   y: 20,
+      //   color: 'red',
+      //   speed: 3
+      // },
+      // {
+      //   text: "刚开始看",
+      //   x: canvasEle.width,
+      //   y: 40,
+      //   color: 'green',
+      //   speed: 2
+      // },
+      // {
+      //   text: "仁者无敌",
+      //   x: canvasEle.width,
+      //   y: 60,
+      //   color: 'blue',
+      //   speed: 5
+      // },
+      // {
+      //   text: "信者无敌",
+      //   x: canvasEle.width,
+      //   y: 80,
+      //   color: 'orange',
+      //   speed: 4
+      // }
+    ];
+    // 点击发送创建弹幕对象
+    let sendDubble = document.getElementById('sendBubble');
+    sendDubble.onclick = function () {
+      let textValue = document.getElementById('text').value;
+      let colorValue = document.getElementById('color').value;
+      let speedValue = document.getElementById('speed').value;
+      // 创建弹幕对象
+      let obj = new Dubble(textValue, 40 + Math.floor(Math.random() * 9 * 40), colorValue, speedValue);
+      // let obj = {
+      //   text: textValue,
+      //   x: canvasEle.width,
+      //   y:40+Math.floor(Math.random()*9 *40),     //0-9
+      //   color: colorValue,
+      //   speed: speedValue
+      // }
+      array.push(obj);
+    }
+    // 绘制弹幕
+    function draw() {
+      // 清除画布内容然后再画
+      ctx.clearRect(0, 0, canvasEle.width, canvasEle.height);
+      array.forEach(obj => {
+        // ctx.fillStyle = obj.color;
+        //绘制单一个弹幕对象
+        // ctx.fillText(obj.text, obj.x, obj.y);
+        obj.draw();
+        // obj.x -= obj.speed;
+        obj.update();
+      });
+      window.requestAnimationFrame(draw);
+    }
+    // 调用draw()函数
+    draw();
+  </script>
+</body>
+
+</html>

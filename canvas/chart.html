@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    ol,
+    dl {
+      list-style: none;
+    }
+
+    #canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+</body>
+<script>
+  // 基础数据
+  let dataset = [
+    {
+      lable: "欧美",
+      value: 200
+    },
+    {
+      lable: "国产",
+      value: 220
+    },
+    {
+      lable: "剧情",
+      value: 130
+    },
+    {
+      lable: "日韩",
+      value: 180
+    }
+  ];
+  // 获取HTMLCanvasElement对象
+  let canvasEle = document.getElementById('canvas');
+  // 设置HTMLCanvasElement的宽度和高度
+  canvasEle.width = 500;
+  canvasEle.height = 300;
+  // 获取CanvasRenderingContext2D对象
+  let ctx = canvasEle.getContext('2d');
+  //  设置文本的对齐方式  --- 水平对齐
+  ctx.textAlign = 'center';
+  // 绘制坐标轴
+  ctx.beginPath();
+  ctx.moveTo(25, 25);
+  ctx.lineTo(25, canvasEle.height - 25);
+  ctx.lineTo(canvasEle.width - 25, canvasEle.height - 25);
+  ctx.stroke();
+  // 绘制2d柱形图
+  // 设置柱形填充颜色
+  let colors = ['#c23531', '#df4554', '#e1a0a8', '#d48265', '#c1c7ae', '#b49f83', '#aa8622', '#bda29a', '#9e7074', '#a46570', '#c4ccd3'];
+  let color = colors[Math.floor(Math.random() * colors.length)];
+  for (n = 0; n < dataset.length; n++) {
+    // 一个柱形的宽度
+    let width = 40;
+    // 计算画布的剩余空间，并且平均分割开
+    let spacer = Math.ceil((canvasEle.width - dataset.length * width - 50) / (dataset.length + 1));
+    let x = (n + 1) * spacer + n * width + 25;
+    let y = canvasEle.height - dataset[n].value - 25;
+    let height = dataset[n].value;
+    // 设置绘制矩形的颜色
+    ctx.fillStyle = color;
+    // 绘制填充矩形
+    ctx.fillRect(x, y, width, height);
+    // 设置填充文本的颜色
+    ctx.fillStyle = '#000';
+    // 设置文本属性
+    ctx.font = '12px Microsoft Yahei';
+    //  绘制填充文本--数据文本
+    ctx.fillText(dataset[n].value, x + Math.ceil(width / 2), y - 5);
+    //  绘制填充文本--底部标签文本
+    ctx.fillText(dataset[n].lable, x + Math.ceil(width / 2), Math.ceil(canvasEle.height) - 5);
+  }
+</script>
+
+</html>

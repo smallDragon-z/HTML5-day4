@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #canvas {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    let canvasEle = document.querySelector('canvas');
+    canvasEle.width = 300;
+    canvasEle.height = 400;
+    let ctx = canvasEle.getContext('2d');
+    // 设置文本属性
+    ctx.font = '30px Microsoft Yahei';
+    // 设置文本描边颜色
+    ctx.strokeStyle = '#f00';
+    // 绘制描边文本
+    ctx.strokeText('WEB前端', 100, 50);
+    // 设置文本填充颜色
+    ctx.fillStyle = '#f00';
+    // 绘制填充文本
+    ctx.fillText('WEB前端', 100, 100);
+  </script>
+</body>
+
+</html>

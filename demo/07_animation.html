@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body,
+    p,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol,
+    li,
+    dl,
+    dt,
+    dd,
+    form,
+    input,
+    select,
+    table,
+    tr,
+    th {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    #canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <p style="text-align:center;" onclick="playOrPause()"><button>播放/暂停</button></p>
+  <script>
+    // 获取HTMLCanvasElement对象
+    let canvasEle = document.getElementById('canvas');
+    // 设置HTMLCanvasElement的宽度和高度
+    canvasEle.width = 400;
+    canvasEle.height = 300;
+    // 获取CanvasRenderingContext2D对象
+    let ctx = canvasEle.getContext('2d');
+    /////////////////////////////////////
+    let x = 0;
+    let y = 0;
+    let xDistance = 1;
+    ctx.font = '24px Microsoft Yahei';
+    //标识动画当前的状态
+    let isPlaying = false;
+    //绘制动画的一帧
+    let id;
+    function draw(){
+      ctx.clearRect(0, 0, canvasEle.width, canvasEle.height);
+      ctx.strokeRect(x, y, 50, 50);
+      ctx.fillText('中国', 100, 100);
+      x += xDistance; 
+      if(x >= canvasEle.width - 50 || x <= 0){
+        xDistance = -xDistance;
+      }
+      ////////////////////////
+      //与显示器的刷新频率保持一致,反复绘制动画帧
+      id = requestAnimationFrame(draw);      
+      /////////////////////////
+    }
+    function playOrPause(){
+        if(isPlaying  == false){
+          draw();
+          //修改动画当前的状态为 -- 播放中
+          isPlaying  = true;
+        } else {
+          window.cancelAnimationFrame(id);
+          //修改动画当前的状态为 -- 暂停
+          isPlaying = false;
+        }
+    }
+
+  </script>
+</body>
+
+</html>

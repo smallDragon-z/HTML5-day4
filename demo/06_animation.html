@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body,
+    p,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol,
+    li,
+    dl,
+    dt,
+    dd,
+    form,
+    input,
+    select,
+    table,
+    tr,
+    th {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul,
+    ol {
+      list-style: none;
+    }
+
+    #canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    // 获取HTMLCanvasElement对象
+    let canvasEle = document.getElementById('canvas');
+    // 设置HTMLCanvasElement的宽度和高度
+    canvasEle.width = 400;
+    canvasEle.height = 300;
+    // 获取CanvasRenderingContext2D对象
+    let ctx = canvasEle.getContext('2d');
+    /////////////////////////////////////
+    let x = 0;
+    let y = 0;
+    let xDistance = 10;
+    ctx.font = '24px Microsoft Yahei';
+    let n = 0;
+    window.setInterval(() => {
+      n++;
+      console.log(n);
+      ctx.clearRect(0, 0, canvasEle.width, canvasEle.height);
+      ctx.strokeRect(x, y, 50, 50);
+      ctx.fillText('中国', 100, 100);
+      x += xDistance;
+      /*
+      if (x >= canvasEle.width - 50) {
+        xDistance = -10;
+      } 
+      if( x <= 0){
+        xDistance = 10;
+      }
+      */
+      //xDistance =  (x >= canvasEle.width - 50 || x <= 0) ? -xDistance : xDistance;
+      if(x >= canvasEle.width - 50 || x <= 0){
+        xDistance = -xDistance;
+      }
+
+    }, 100);
+
+  </script>
+</body>
+
+</html>

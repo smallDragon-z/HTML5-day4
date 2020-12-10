@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class Bubble {
+      constructor(text, x, y, color, speed) {
+        this.text = text;
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.speed = speed;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.fillText(this.text, this.x, this.y);
+      }
+      update() {
+        this.x -= this.speed;
+      }
+    }
+    function init(){
+      let bubble = new Bubble('起飞,起飞',300,80,'#f00',3);
+      console.log(bubble);
+    }
+    init();
+  </script>
+</body>
+
+</html>
